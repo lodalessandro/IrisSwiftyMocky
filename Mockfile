@@ -1,0 +1,12 @@
+sourceryCommand: null
+sourceryTemplate: null
+unit.tests.mock:
+  sources:
+    include:
+    - ./SwiftyMockyLab
+    exclude: []
+  output: ./SwiftyMockyLab/Mocks/Mock.generated.swift
+  targets:
+  - SwiftyMockyLab
+  import:
+  - Foundation

@@ -1,0 +1,6 @@
+framework module Pods_SwiftyMockyLab {
+  umbrella header "Pods-SwiftyMockyLab-umbrella.h"
+
+  export *
+  module * { export * }
+}

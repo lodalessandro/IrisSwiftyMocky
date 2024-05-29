@@ -11,9 +11,9 @@ import XCTest
 import Foundation
 
 
-// MARK: - ExampleDataService
+// MARK: - CatDataService
 
-open class ExampleDataServiceMock: ExampleDataService, Mock {
+open class CatDataServiceMock: CatDataService, Mock {
     public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
         SwiftyMockyTestObserver.setup()
         self.sequencingPolicy = sequencingPolicy
@@ -55,30 +55,65 @@ open class ExampleDataServiceMock: ExampleDataService, Mock {
 
 
 
-    open func networkCall() {
-        addInvocation(.m_networkCall)
-		let perform = methodPerformValue(.m_networkCall) as? () -> Void
+    open func getFact() throws -> CatFact {
+        addInvocation(.m_getFact)
+		let perform = methodPerformValue(.m_getFact) as? () -> Void
 		perform?()
+		var __value: CatFact
+		do {
+		    __value = try methodReturnValue(.m_getFact).casted()
+		} catch MockError.notStubed {
+			onFatalFailure("Stub return value not specified for getFact(). Use given")
+			Failure("Stub return value not specified for getFact(). Use given")
+		} catch {
+		    throw error
+		}
+		return __value
+    }
+
+    open func getFacts(limit: Int) throws -> [CatFact] {
+        addInvocation(.m_getFacts__limit_limit(Parameter<Int>.value(`limit`)))
+		let perform = methodPerformValue(.m_getFacts__limit_limit(Parameter<Int>.value(`limit`))) as? (Int) -> Void
+		perform?(`limit`)
+		var __value: [CatFact]
+		do {
+		    __value = try methodReturnValue(.m_getFacts__limit_limit(Parameter<Int>.value(`limit`))).casted()
+		} catch MockError.notStubed {
+			onFatalFailure("Stub return value not specified for getFacts(limit: Int). Use given")
+			Failure("Stub return value not specified for getFacts(limit: Int). Use given")
+		} catch {
+		    throw error
+		}
+		return __value
     }
 
 
     fileprivate enum MethodType {
-        case m_networkCall
+        case m_getFact
+        case m_getFacts__limit_limit(Parameter<Int>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
-            case (.m_networkCall, .m_networkCall): return .match
+            case (.m_getFact, .m_getFact): return .match
+
+            case (.m_getFacts__limit_limit(let lhsLimit), .m_getFacts__limit_limit(let rhsLimit)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLimit, rhs: rhsLimit, with: matcher), lhsLimit, rhsLimit, "limit"))
+				return Matcher.ComparisonResult(results)
+            default: return .none
             }
         }
 
         func intValue() -> Int {
             switch self {
-            case .m_networkCall: return 0
+            case .m_getFact: return 0
+            case let .m_getFacts__limit_limit(p0): return p0.intValue
             }
         }
         func assertionName() -> String {
             switch self {
-            case .m_networkCall: return ".networkCall()"
+            case .m_getFact: return ".getFact()"
+            case .m_getFacts__limit_limit: return ".getFacts(limit:)"
             }
         }
     }
@@ -92,20 +127,50 @@ open class ExampleDataServiceMock: ExampleDataService, Mock {
         }
 
 
+        public static func getFact(willReturn: CatFact...) -> MethodStub {
+            return Given(method: .m_getFact, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func getFacts(limit: Parameter<Int>, willReturn: [CatFact]...) -> MethodStub {
+            return Given(method: .m_getFacts__limit_limit(`limit`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func getFact(willThrow: Error...) -> MethodStub {
+            return Given(method: .m_getFact, products: willThrow.map({ StubProduct.throw($0) }))
+        }
+        public static func getFact(willProduce: (StubberThrows<CatFact>) -> Void) -> MethodStub {
+            let willThrow: [Error] = []
+			let given: Given = { return Given(method: .m_getFact, products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (CatFact).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func getFacts(limit: Parameter<Int>, willThrow: Error...) -> MethodStub {
+            return Given(method: .m_getFacts__limit_limit(`limit`), products: willThrow.map({ StubProduct.throw($0) }))
+        }
+        public static func getFacts(limit: Parameter<Int>, willProduce: (StubberThrows<[CatFact]>) -> Void) -> MethodStub {
+            let willThrow: [Error] = []
+			let given: Given = { return Given(method: .m_getFacts__limit_limit(`limit`), products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: ([CatFact]).self)
+			willProduce(stubber)
+			return given
+        }
     }
 
     public struct Verify {
         fileprivate var method: MethodType
 
-        public static func networkCall() -> Verify { return Verify(method: .m_networkCall)}
+        public static func getFact() -> Verify { return Verify(method: .m_getFact)}
+        public static func getFacts(limit: Parameter<Int>) -> Verify { return Verify(method: .m_getFacts__limit_limit(`limit`))}
     }
 
     public struct Perform {
         fileprivate var method: MethodType
         var performs: Any
 
-        public static func networkCall(perform: @escaping () -> Void) -> Perform {
-            return Perform(method: .m_networkCall, performs: perform)
+        public static func getFact(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_getFact, performs: perform)
+        }
+        public static func getFacts(limit: Parameter<Int>, perform: @escaping (Int) -> Void) -> Perform {
+            return Perform(method: .m_getFacts__limit_limit(`limit`), performs: perform)
         }
     }
 

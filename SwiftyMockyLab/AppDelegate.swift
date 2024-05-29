@@ -11,7 +11,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        NetworkManager.shared = .init(baseURL: URL(string: "https://api.chucknorris.io/")!)
+        NetworkManager.shared = .init(baseURL: URL(string: "https://catfact.ninja/")!)
         return true
     }
 

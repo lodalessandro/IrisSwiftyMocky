@@ -1,0 +1,11 @@
+sources:
+  include:
+  - ../MyApp
+  exclude: []
+templates:
+- /Users/lorenzo/Projects/Lab/innovation_lab/SwiftyMockyLab/.mocky624C3655-EB29-4CCD-866F-1A9196931834/.template.swifttemplate
+output: /Users/lorenzo/Projects/Lab/innovation_lab/SwiftyMockyLab/.mocky624C3655-EB29-4CCD-866F-1A9196931834/types.yaml
+args:
+  swiftyMocky:
+    import: []
+    testable: []

@@ -24,5 +24,10 @@ class ViewController: UIViewController {
         print(mock.returnString(for: 10))
         print(mock.returnString(for: 100))
         print(real.returnString(for: 100))
+        
+        let exampleDataServiceMock = ExampleDataServiceImplemention.getInstance(isMocked: true) as! ExampleDataServiceMock
+        let exampleDataService = ExampleDataServiceImplemention.getInstance(isMocked: false) as! ExampleDataServiceImplemention
+        exampleDataServiceMock.networkCall()
+        exampleDataService.networkCall()
     }
 }

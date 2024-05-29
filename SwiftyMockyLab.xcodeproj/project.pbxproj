@@ -18,6 +18,10 @@
 		ED0D5F882C03E6A90048023B /* SwiftyMockyLabTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0D5F872C03E6A90048023B /* SwiftyMockyLabTests.swift */; };
 		ED0D5F8A2C03E7FA0048023B /* AutoMockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0D5F892C03E7FA0048023B /* AutoMockable.swift */; };
 		ED0D5F8F2C04A0890048023B /* Mock.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0D5F8E2C04A0890048023B /* Mock.generated.swift */; };
+		ED0D5F922C05319D0048023B /* MockableDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0D5F912C05319D0048023B /* MockableDataService.swift */; };
+		ED0D5F942C05331D0048023B /* ExampleDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0D5F932C05331D0048023B /* ExampleDataService.swift */; };
+		EDF66B992C0672F200FF5AD7 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF66B962C0672F200FF5AD7 /* NetworkManager.swift */; };
+		EDF66B9A2C0672F200FF5AD7 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF66B972C0672F200FF5AD7 /* ApiError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +40,10 @@
 		ED0D5F872C03E6A90048023B /* SwiftyMockyLabTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyMockyLabTests.swift; sourceTree = "<group>"; };
 		ED0D5F892C03E7FA0048023B /* AutoMockable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoMockable.swift; sourceTree = "<group>"; };
 		ED0D5F8E2C04A0890048023B /* Mock.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mock.generated.swift; sourceTree = "<group>"; };
+		ED0D5F912C05319D0048023B /* MockableDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockableDataService.swift; sourceTree = "<group>"; };
+		ED0D5F932C05331D0048023B /* ExampleDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleDataService.swift; sourceTree = "<group>"; };
+		EDF66B962C0672F200FF5AD7 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		EDF66B972C0672F200FF5AD7 /* ApiError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +88,7 @@
 		ED0D5F702C03E4A50048023B /* SwiftyMockyLab */ = {
 			isa = PBXGroup;
 			children = (
+				ED0D5F902C05318C0048023B /* Networking */,
 				ED0D5F8D2C04A0890048023B /* Mocks */,
 				ED0D5F712C03E4A50048023B /* AppDelegate.swift */,
 				ED0D5F732C03E4A50048023B /* SceneDelegate.swift */,
@@ -101,6 +110,33 @@
 				ED0D5F8E2C04A0890048023B /* Mock.generated.swift */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		ED0D5F902C05318C0048023B /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				EDF66B942C0672E400FF5AD7 /* NetworkManager */,
+				EDF66B932C0672A700FF5AD7 /* DataService */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		EDF66B932C0672A700FF5AD7 /* DataService */ = {
+			isa = PBXGroup;
+			children = (
+				ED0D5F912C05319D0048023B /* MockableDataService.swift */,
+				ED0D5F932C05331D0048023B /* ExampleDataService.swift */,
+			);
+			path = DataService;
+			sourceTree = "<group>";
+		};
+		EDF66B942C0672E400FF5AD7 /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				EDF66B972C0672F200FF5AD7 /* ApiError.swift */,
+				EDF66B962C0672F200FF5AD7 /* NetworkManager.swift */,
+			);
+			path = NetworkManager;
 			sourceTree = "<group>";
 		};
 		FC529F87CA82841F404D5203 /* Frameworks */ = {
@@ -228,9 +264,13 @@
 			files = (
 				ED0D5F862C03E6260048023B /* ToBeMocked.swift in Sources */,
 				ED0D5F8F2C04A0890048023B /* Mock.generated.swift in Sources */,
+				ED0D5F942C05331D0048023B /* ExampleDataService.swift in Sources */,
 				ED0D5F762C03E4A50048023B /* ViewController.swift in Sources */,
+				EDF66B992C0672F200FF5AD7 /* NetworkManager.swift in Sources */,
+				EDF66B9A2C0672F200FF5AD7 /* ApiError.swift in Sources */,
 				ED0D5F722C03E4A50048023B /* AppDelegate.swift in Sources */,
 				ED0D5F882C03E6A90048023B /* SwiftyMockyLabTests.swift in Sources */,
+				ED0D5F922C05319D0048023B /* MockableDataService.swift in Sources */,
 				ED0D5F8A2C03E7FA0048023B /* AutoMockable.swift in Sources */,
 				ED0D5F742C03E4A50048023B /* SceneDelegate.swift in Sources */,
 			);

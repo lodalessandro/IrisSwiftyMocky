@@ -7,55 +7,49 @@
 
 import UIKit
 import SwiftyMocky
+import Combine
 
 class ViewController: UIViewController {
 
+    @IBOutlet var segmentControlView: UISegmentedControl!
+    @IBOutlet var label: UILabel!
+    @IBOutlet var button: UIButton!
+    
+    private var viewModel: ViewModel = .init()
+    private var cancellables = Set<AnyCancellable>()
+        
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViews()
+        setupObservers()
+    }
         
-        let catDataService: CatDataServiceImplemention = .init()
-        let mockedCatDataService: CatDataServiceMock = .init()
+    private func setupViews() {
+        segmentControlView.addTarget(self, action: #selector(segmentChanged(_:)), for: .valueChanged)
+        button.addTarget(self, action: #selector(buttonTapped) , for: .touchUpInside)
+    }
+    
+    private func setupObservers() {
+        viewModel.$environment
+            .sink { [weak self] environment in
+                self?.label.text = nil
+            }
+            .store(in: &cancellables)
         
-        Given(mockedCatDataService, .getFact(willReturn: .init(fact: "Frase finta sui gatti", length: 1000)))
-        
-        Given(
-            mockedCatDataService,
-              .getFacts(
-                limit: 2,
-                willReturn: [
-                    .init(fact: "fatto 1", length: 1),
-                    .init(fact: "fatto 2", length: 2)
-                ]
-              )
-        )
-        
-        Given(
-            mockedCatDataService,
-              .getFacts(
-                limit: .any,
-                willReturn: [
-                    .init(fact: "gatto 100", length: 1),
-                    .init(fact: "gatto 200", length: 2),
-                    .init(fact: "gatto 300", length: 2)
-                ]
-              )
-        )
-        
+        viewModel.$fact
+            .map { $0?.fact }
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.text, on: label)
+            .store(in: &cancellables)
+    }
+    
+    @objc private func segmentChanged(_ sender: UISegmentedControl) {
+        viewModel.updateEnvironment(index: sender.selectedSegmentIndex)
+    }
+    
+    @objc private func buttonTapped() {
         Task {
-            let fact = try await catDataService.getFact()
-            print("/fact from real dataservice:\n\(fact)\n\n")
-            
-            let facts = try await catDataService.getFacts(limit: 3)
-            print("/facts from real dataservice:\n\(facts)\n\n")
-            
-            let mockedFact = try mockedCatDataService.getFact()
-            print("/fact from fake dataservice:\n\(mockedFact)\n\n")
-            
-            let mockedFacts = try mockedCatDataService.getFacts(limit: 2)
-            print("/facts from fake dataservice:\n\(mockedFacts)\n\n")
-            
-            let mockedFacts2 = try mockedCatDataService.getFacts(limit: 50)
-            print("/facts from fake dataservice with any:\n\(mockedFacts2)")
+            try await viewModel.fetchFact()
         }
     }
 }
